@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import { Figure } from 'react-bootstrap';
+import Img from 'react-image'
+import imageLoader from "src/assets/img/image_loader.gif"
 
 class MangaLists extends Component{
 
@@ -9,8 +11,9 @@ class MangaLists extends Component{
         return(
             <div>
                 <Figure>
-                    <Figure.Image
-                        src={`https://cdn.mangaeden.com/mangasimg/${this.props.im}`}
+
+                    <Img
+                        src={[imageLoader, `https://cdn.mangaeden.com/mangasimg/${this.props.im}`]}
                     />
                     <Figure.Caption>
                         <p><strong>{this.props.t}</strong></p>

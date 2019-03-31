@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import { connect } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { Container, Form, Row } from 'react-bootstrap';
 
@@ -9,11 +10,26 @@ import MangaLists from "src/components/MangaLists";
 class Home extends Component{
 
     state = {
-        language:"italian"
+        language:"italian",
+        lists:[]
     }
 
     componentDidMount(){
         this.props.mangaLists(this.state.language);
+        
+    }
+
+    componentDidUpdate(){
+        console.log(this.flattenArray(this.props.mangaListsData))
+    }
+
+    fetchMoreLists = () => {
+        
+        setTimeout(() => {
+            this.setState((prevState) => {
+                lists: this.flattenArray(this.props.mangaListsData)
+            });
+          }, 3000);
     }
 
     onChangeFormValues = (option, value) => {
@@ -29,7 +45,8 @@ class Home extends Component{
 
     render(){
         console.log(this.state.language);
-        //console.log(this.flattenArray(this.props.mangaListsData));
+        console.log(this.state.lists);
+        //console.log(typeof this.flattenArray(this.props.mangaListsData));
         return(
             <div>
                 <Container>
@@ -62,14 +79,25 @@ class Home extends Component{
                     </Row>
                     <Row>
                         {
-                            this.flattenArray(this.props.mangaListsData) && 
+                            /* this.flattenArray(this.props.mangaListsData).length !== 0 && 
                                 this.flattenArray(this.props.mangaListsData).map((value) => {
                                     return(
                                         <MangaLists {...value}/>
                                     );
-                                })
+                                }) */
                         }
-                        
+                        <InfiniteScroll
+                            dataLength={this.flattenArray(this.props.mangaListsData).length}
+                            next={this.fetchMoreLists}
+                            hasMore={true}
+                            loader={<h4>Loading...</h4>}
+                        >
+                        {
+                            this.state.lists.map((value) => (
+                                <MangaLists {...value}/>
+                            ))
+                        }
+                        </InfiniteScroll>
                     </Row>
                 </Container>
             </div>
