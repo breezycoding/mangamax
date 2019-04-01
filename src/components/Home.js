@@ -7,29 +7,44 @@ import { Container, Form, Row } from 'react-bootstrap';
 import * as mangaLists from "src/redux/action/mangaLists";
 import MangaLists from "src/components/MangaLists";
 
-class Home extends Component{
+import pageLoader from "src/assets/img/page_loader.gif";
 
-    state = {
-        language:"italian",
-        lists:[]
+class Home extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            language:"english",
+            counterList:0,
+            lists:[]
+        }
     }
+
+    
 
     componentDidMount(){
         this.props.mangaLists(this.state.language);
-        
     }
 
-    componentDidUpdate(){
-        console.log(this.flattenArray(this.props.mangaListsData))
+    componentDidUpdate(prevProps){
+        if(prevProps.mangaListsData !== this.props.mangaListsData){
+            console.log("call once");
+            this.setState({
+                lists:  this.flattenArray(this.props.mangaListsData).slice(0,4)
+            });
+        }
     }
 
     fetchMoreLists = () => {
-        
+        this.setState((prevState) => {
+            return{
+                counterList:prevState.counterList+4
+            }
+        });
         setTimeout(() => {
-            this.setState((prevState) => {
-                lists: this.flattenArray(this.props.mangaListsData)
+            this.setState({
+                lists: this.flattenArray(this.props.mangaListsData).slice(0,4 + this.state.counterList)
             });
-          }, 3000);
+        }, 3000);
     }
 
     onChangeFormValues = (option, value) => {
@@ -44,9 +59,10 @@ class Home extends Component{
     }
 
     render(){
-        console.log(this.state.language);
-        console.log(this.state.lists);
-        //console.log(typeof this.flattenArray(this.props.mangaListsData));
+        /* 
+            console.log(this.state.lists);
+            console.log(this.flattenArray(this.props.mangaListsData)); 
+        */
         return(
             <div>
                 <Container>
@@ -78,19 +94,11 @@ class Home extends Component{
                         </div>
                     </Row>
                     <Row>
-                        {
-                            /* this.flattenArray(this.props.mangaListsData).length !== 0 && 
-                                this.flattenArray(this.props.mangaListsData).map((value) => {
-                                    return(
-                                        <MangaLists {...value}/>
-                                    );
-                                }) */
-                        }
                         <InfiniteScroll
-                            dataLength={this.flattenArray(this.props.mangaListsData).length}
+                            dataLength={this.state.lists.length}
                             next={this.fetchMoreLists}
                             hasMore={true}
-                            loader={<h4>Loading...</h4>}
+                            loader={<img src={pageLoader} />}
                         >
                         {
                             this.state.lists.map((value) => (

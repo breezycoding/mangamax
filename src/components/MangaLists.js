@@ -1,9 +1,13 @@
 import React, {Component} from "react";
 import { Figure } from 'react-bootstrap';
-import Img from 'react-image'
-import imageLoader from "src/assets/img/image_loader.gif"
+
+import ImageElement from "src/components/ImageElement";
 
 class MangaLists extends Component{
+
+    state = {
+        loadedImage:false
+    }
 
 
     render(){
@@ -11,10 +15,7 @@ class MangaLists extends Component{
         return(
             <div>
                 <Figure>
-
-                    <Img
-                        src={[imageLoader, `https://cdn.mangaeden.com/mangasimg/${this.props.im}`]}
-                    />
+                    <ImageElement imageSrc={`https://cdn.mangaeden.com/mangasimg/${this.props.im}`}/>
                     <Figure.Caption>
                         <p><strong>{this.props.t}</strong></p>
                     </Figure.Caption>
