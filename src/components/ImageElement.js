@@ -1,34 +1,26 @@
-import React, {Component} from "react";
+import React, { useState } from "react";
 import VisibilitySensor from 'react-visibility-sensor';
 
 import imageLoader from "src/assets/img/image_loader.gif"
 import noAvailableImage from "src/assets/img/noAvailableImage.png"
 
-class ImageElement extends Component {
-
-    state = {
-        loadedImage:false
-    }
-
-    handleImageErrored = (e) => e.target.src = noAvailableImage;
-
-    handleImageLoaded = () => this.setState({loadedImage:true});
-
-    render() {
-        return (
-            <div>
+/* using react hooks */
+const ImageElement = (props) => {
+    const [loadedImage, handleImageLoaded] = useState(false);
+	
+    return(
+        <div>
                 {
-                    !this.state.loadedImage && <img src={imageLoader}/>
+                    !loadedImage && <img src={imageLoader}/>
                 }
                 <VisibilitySensor>
                     <img
-                        src={this.props.imageSrc}
-                        onLoad={this.handleImageLoaded}
-                        onError={this.handleImageErrored}
+                        src={props.imageSrc}
+                        onLoad={() => handleImageLoaded(true)}
+                        onError={(e) => e.target.src = noAvailableImage}
                     />
                 </VisibilitySensor>
             </div>
-        );
-    }
+    );
 }
 export default ImageElement;
