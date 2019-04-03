@@ -6,7 +6,7 @@ import noAvailableImage from "src/assets/img/noAvailableImage.png"
 
 /* using react hooks */
 const ImageElement = (props) => {
-    const [loadedImage, handleImageLoaded] = useState(false);
+    const [loadedImage, setloadedImage] = useState(false);
 	
     return(
         <div>
@@ -16,7 +16,7 @@ const ImageElement = (props) => {
                 <VisibilitySensor>
                     <img
                         src={props.imageSrc}
-                        onLoad={() => handleImageLoaded(true)}
+                        onLoad={() => setloadedImage(true)}
                         onError={(e) => e.target.src = noAvailableImage}
                     />
                 </VisibilitySensor>

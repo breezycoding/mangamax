@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-//import React, { Component } from "react";
+//import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -9,7 +9,7 @@ import * as mangaLists from "src/redux/action/mangaLists";
 import MangaLists from "src/components/MangaLists";
 
 import pageLoader from "src/assets/img/page_loader.gif";
-/* 
+
 class Home extends Component{
     constructor(props) {
         super(props);
@@ -19,8 +19,6 @@ class Home extends Component{
             lists:[]
         }
     }
-
-    
 
     componentDidMount(){
         this.props.mangaLists(this.state.language);
@@ -61,8 +59,8 @@ class Home extends Component{
 
     render(){
         
-        console.log(this.state.lists);
-        console.log(this.flattenArray(this.props.mangaListsData)); 
+        /* console.log(this.state.lists);
+        console.log(this.flattenArray(this.props.mangaListsData)); */
         
         return(
             <div>
@@ -71,6 +69,7 @@ class Home extends Component{
                         <div>
                             <Form.Group as={Row}>
                                 <Form.Check
+                                
                                     custom
                                     inline
                                     value={this.state.language}
@@ -112,32 +111,32 @@ class Home extends Component{
             </div>
         );
     }
-} */
+}
  
 //using reacthooks
-const Home = (props) => {
+/* const Home = (props) => {
     const flattenArray = (arrElem) => [].concat.apply([], arrElem);
     
-    const [counterList, useCounterList] = useState(0);
-    const [language, useLanguage] = useState("english");
-    const [lists, useLists] = useState([]);
+    const [counterList, setCounterList] = useState(0);
+    const [language, setLanguage] = useState("english");
+    const [lists, setLists] = useState([]);
 
     useEffect(() => {
         props.mangaLists(language);
     },[language]);
 
-    useEffect(() => {
-        useLists(flattenArray(props.mangaListsData).slice(0,4).map(value => value));
-    },[flattenArray(props.mangaListsData).slice(0,4).length !== 0]);
-
     const fetchMoreLists = () => {
-        useCounterList(counterList + 4);
+        setCounterList(counterList + 4);
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            useLists(flattenArray(props.mangaListsData).slice(0,4 + counterList))
-        }, 3000);
+        if(counterList === 0 ){
+            setLists(flattenArray(props.mangaListsData).slice(0,4).map(value => value));
+        }else{
+            setTimeout(() => {
+                setLists(flattenArray(props.mangaListsData).slice(0,4 + counterList))
+            }, 3000);
+        } 
     },[lists]);
 
     return(
@@ -150,7 +149,7 @@ const Home = (props) => {
                                 custom
                                 inline
                                 value={language}
-                                onChange={() => useLanguage("english") }
+                                onChange={() => setLanguage("english") }
                                 name="radio_language"
                                 id="custom-radio-english"
                                 label="English"
@@ -161,7 +160,7 @@ const Home = (props) => {
                                 custom
                                 inline
                                 value={language}
-                                onChange={() =>  useLanguage("italian") }
+                                onChange={() =>  setLanguage("italian") }
                                 name="radio_language"
                                 id="custom-radio-italian"
                                 label="Italian"
@@ -173,7 +172,7 @@ const Home = (props) => {
                 <Row>
                     <InfiniteScroll
                         dataLength={lists.length}
-                        next={() => fetchMoreLists()}
+                        next={fetchMoreLists}
                         hasMore={true}
                         loader={<img src={pageLoader} />}
                     >
@@ -187,8 +186,7 @@ const Home = (props) => {
             </Container>
         </div>
     );
-
- }
+ } */
 
 const mapStateToProps = (state, props) => {    
 	return {

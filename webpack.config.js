@@ -1,11 +1,13 @@
-module.exports = () => {
-    const path = require("path");
-    const HtmlWebpackPlugin = require("html-webpack-plugin");
-    const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-    const VENDOR_LIBS = [
-        "react", "redux", "react-redux", "react-dom", "redux-thunk", "react-router", "react-router-dom", "@babel/polyfill/noConflict", "react-bootstrap"
-    ];
+const VENDOR_LIBS = [
+    "react", "lodash", "redux", "react-redux", "react-dom", "redux-thunk", "react-router", "react-router-dom", "@babel/polyfill/noConflict", "react-bootstrap"
+];
+
+module.exports = () => {
+    
 
     return{
         entry:{
@@ -30,7 +32,7 @@ module.exports = () => {
                 maxAsyncRequests: 5,
                 maxInitialRequests: 3,
                 automaticNameDelimiter: '~',
-                name: true,
+                name: "vendor",
                 cacheGroups: {
                     vendors: {
                         test: /[\\/]node_modules[\\/]/,
@@ -56,7 +58,7 @@ module.exports = () => {
         module:{
             rules:[
                 {
-                    test: /\.m?js$/,
+                    test: /\.js$/,
                     use: {
                         loader: "babel-loader",
                         options: {
