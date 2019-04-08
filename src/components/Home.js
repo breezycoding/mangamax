@@ -28,7 +28,7 @@ class Home extends Component{
         if(prevProps.mangaListsData !== this.props.mangaListsData){
             console.log("call once");
             this.setState({
-                lists:  this.flattenArray(this.props.mangaListsData).slice(0,4)
+                lists:  this.flattenArray(this.props.mangaListsData).slice(0,8)
             });
         }
     }
@@ -41,9 +41,9 @@ class Home extends Component{
         });
         setTimeout(() => {
             this.setState({
-                lists: this.flattenArray(this.props.mangaListsData).slice(0,4 + this.state.counterList)
+                lists: this.flattenArray(this.props.mangaListsData).slice(0,8 + this.state.counterList)
             });
-        }, 3000);
+        }, 1500);
     }
 
     onChangeFormValues = (option, value) => {
@@ -59,17 +59,16 @@ class Home extends Component{
 
     render(){
         
-        /* console.log(this.state.lists);
-        console.log(this.flattenArray(this.props.mangaListsData)); */
+        //console.log(this.state.lists);
+        console.log(this.flattenArray(this.props.mangaListsData));
         
         return(
-            <div>
+            <section id="homepage">
                 <Container>
                     <Row>
                         <div>
                             <Form.Group as={Row}>
                                 <Form.Check
-                                
                                     custom
                                     inline
                                     value={this.state.language}
@@ -93,22 +92,24 @@ class Home extends Component{
                             </Form.Group>
                         </div>
                     </Row>
-                    <Row>
+                    <Row className="homepage__infinite_scroll_wrapper">
                         <InfiniteScroll
                             dataLength={this.state.lists.length}
                             next={this.fetchMoreLists}
                             hasMore={true}
-                            loader={<img src={pageLoader} />}
+                            loader={<img className="homepage__loader" src={pageLoader} />}
                         >
-                        {
-                            this.state.lists.map((value, index) => (
-                                <MangaLists key={index} {...value}/>
-                            ))
-                        }
+                            <Row>
+                                {
+                                    this.state.lists.map((value, index) => (
+                                        <MangaLists key={index} {...value}/>
+                                    ))
+                                }
+                            </Row>
                         </InfiniteScroll>
                     </Row>
                 </Container>
-            </div>
+            </section>
         );
     }
 }

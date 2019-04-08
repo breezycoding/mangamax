@@ -1,0 +1,17 @@
+.homepage__loader{
+    display:block;
+    margin:0px auto 5px auto;
+    width:90px;
+}
+.homepage__infinite_scroll_wrapper > div{
+    width:100%;
+}
+.infinite-scroll-component {
+    overflow:hidden!important;
+}
+.manga_lists{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    //min-height:60%;
+}

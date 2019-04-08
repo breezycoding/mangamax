@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Figure } from 'react-bootstrap';
+import { Figure, Col} from 'react-bootstrap';
 
 import ImageElement from "src/components/ImageElement";
 
@@ -7,14 +7,14 @@ import ImageElement from "src/components/ImageElement";
 const MangaLists = (props) => {
     //console.log(props.c);
     return(
-        <div>
-            <Figure>
+        <Col md={3} sm={6} xs={12} className="mangalists_col">
+            <div className="manga_lists">
                 <ImageElement imageSrc={`https://cdn.mangaeden.com/mangasimg/${props.im}`}/>
-                <Figure.Caption>
+                <div className="manga_lists__text_wrapper">
                     <p><strong>{props.t}</strong></p>
-                </Figure.Caption>
-            </Figure>
-        </div>
+                </div>
+            </div>
+        </Col>
     );
 }
 

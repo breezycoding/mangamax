@@ -10,17 +10,18 @@ const ImageElement = (props) => {
 	
     return(
         <div>
-                {
-                    !loadedImage && <img src={imageLoader}/>
-                }
-                <VisibilitySensor>
-                    <img
-                        src={props.imageSrc}
-                        onLoad={() => setloadedImage(true)}
-                        onError={(e) => e.target.src = noAvailableImage}
-                    />
-                </VisibilitySensor>
-            </div>
+            {
+                !loadedImage && <img className="image_loader" src={imageLoader}/>
+            }
+            <VisibilitySensor>
+                <img
+                    className="categoryImages"
+                    src={props.imageSrc}
+                    onLoad={() => setloadedImage(true)}
+                    onError={(e) => e.target.src = noAvailableImage}
+                />
+            </VisibilitySensor>
+        </div>
     );
 }
 export default ImageElement;

@@ -27,7 +27,7 @@ const App_router = () => {
 
 	return(
 		<div>
-			{developmentBuild()}
+			{productionBuild()}
 		</div>
 	);
 } 
