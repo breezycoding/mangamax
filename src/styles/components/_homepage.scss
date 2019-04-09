@@ -1,7 +1,21 @@
+.homepage__header{
+    background-color: #EE7600;
+    color: $bg_color;
+    height: 80px;
+    margin-bottom: 20px;
+    width:100%;
+}
+.homepage__header h1{
+    font-size:4rem;
+}
 .homepage__loader{
     display:block;
     margin:0px auto 5px auto;
     width:90px;
+}
+.homepage__header_row{
+    margin-left:0px!important;
+    margin-right:0px!important;
 }
 .homepage__infinite_scroll_wrapper > div{
     width:100%;

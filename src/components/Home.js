@@ -16,7 +16,8 @@ class Home extends Component{
         this.state = {
             language:"english",
             counterList:0,
-            lists:[]
+            lists:[],
+            listCopy: []
         }
     }
 
@@ -27,8 +28,10 @@ class Home extends Component{
     componentDidUpdate(prevProps){
         if(prevProps.mangaListsData !== this.props.mangaListsData){
             console.log("call once");
+            console.log(this.flattenArray(this.props.mangaListsData).filter(value => Object.keys(value).length !== 0 || typeof value === "object").slice(0,8));
+            /*console.log(this.state.listCopy); */
             this.setState({
-                lists:  this.flattenArray(this.props.mangaListsData).slice(0,8)
+                lists:  this.flattenArray(this.props.mangaListsData).filter(value => Object.keys(value).length !== 0).slice(0,8)
             });
         }
     }
@@ -41,7 +44,8 @@ class Home extends Component{
         });
         setTimeout(() => {
             this.setState({
-                lists: this.flattenArray(this.props.mangaListsData).slice(0,8 + this.state.counterList)
+                //lists: this.flattenArray(this.props.mangaListsData).slice(0,8 + this.state.counterList)
+                lists: this.flattenArray(this.props.mangaListsData).filter(value => Object.keys(value).length !== 0).slice(0,8 + this.state.counterList)
             });
         }, 1500);
     }
@@ -60,37 +64,46 @@ class Home extends Component{
     render(){
         
         //console.log(this.state.lists);
-        console.log(this.flattenArray(this.props.mangaListsData));
+        //console.log(this.flattenArray(this.props.mangaListsData));
         
         return(
             <section id="homepage">
+                <Row className="homepage__header_row">
+                    <div className="homepage__header">
+                        <Container className="clearfix">
+                            <h1 className="float-left">MangaMax</h1>
+                            <div  className="float-right">
+                                <Form.Group as={Row}>
+                                    <Form.Check
+                                        custom
+                                        inline
+                                        value={this.state.language}
+                                        onChange={() => this.onChangeFormValues("language", "english")}
+                                        name="radio_language"
+                                        id="custom-radio-english"
+                                        label="English"
+                                        type="radio"
+                                        defaultChecked
+                                    />
+                                    <Form.Check
+                                        custom
+                                        inline
+                                        value={this.state.language}
+                                        onChange={() => this.onChangeFormValues("language", "italian")}
+                                        name="radio_language"
+                                        id="custom-radio-italian"
+                                        label="Italian"
+                                        type="radio"
+                                    />
+                                </Form.Group>
+                            </div>
+                        </Container>
+                    </div>
+                </Row>
                 <Container>
+                    
                     <Row>
-                        <div>
-                            <Form.Group as={Row}>
-                                <Form.Check
-                                    custom
-                                    inline
-                                    value={this.state.language}
-                                    onChange={() => this.onChangeFormValues("language", "english")}
-                                    name="radio_language"
-                                    id="custom-radio-english"
-                                    label="English"
-                                    type="radio"
-                                    defaultChecked
-                                />
-                                <Form.Check
-                                    custom
-                                    inline
-                                    value={this.state.language}
-                                    onChange={() => this.onChangeFormValues("language", "italian")}
-                                    name="radio_language"
-                                    id="custom-radio-italian"
-                                    label="Italian"
-                                    type="radio"
-                                />
-                            </Form.Group>
-                        </div>
+                        
                     </Row>
                     <Row className="homepage__infinite_scroll_wrapper">
                         <InfiniteScroll

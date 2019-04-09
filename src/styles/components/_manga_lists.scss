@@ -5,6 +5,13 @@
     bottom: 0;
     width: 100%;
     left: 0;
+    text-align:center;
+    font-size:$reg_font;
+
+    flex-direction: column;
+    justify-content: center;
+
+    @include display_flex();
 }
 .mangalists_col{
     margin-bottom:20px;
