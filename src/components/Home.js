@@ -28,12 +28,22 @@ class Home extends Component{
     componentDidUpdate(prevProps){
         if(prevProps.mangaListsData !== this.props.mangaListsData){
             console.log("call once");
-            console.log(this.flattenArray(this.props.mangaListsData).filter(value => Object.keys(value).length !== 0 || typeof value === "object").slice(0,8));
-            /*console.log(this.state.listCopy); */
+            //console.log("this ",this.validListsObject());
             this.setState({
-                lists:  this.flattenArray(this.props.mangaListsData).filter(value => Object.keys(value).length !== 0).slice(0,8)
+                lists: this.validListsObject()
             });
         }
+    }
+
+    validListsObject = (adddedLists = 0) => {
+        return this.flattenArray(this.props.mangaListsData).filter(
+            (value) => {
+                return Object.keys(value).length !== 0 && 
+                        (
+                            value.a || value.im || value.t || value.i || value.s || value.c || value.ld || value.h
+                        ) 
+            }
+        ).slice(0,8 + adddedLists);
     }
 
     fetchMoreLists = () => {
@@ -44,8 +54,7 @@ class Home extends Component{
         });
         setTimeout(() => {
             this.setState({
-                //lists: this.flattenArray(this.props.mangaListsData).slice(0,8 + this.state.counterList)
-                lists: this.flattenArray(this.props.mangaListsData).filter(value => Object.keys(value).length !== 0).slice(0,8 + this.state.counterList)
+                lists: this.validListsObject(this.state.counterList)
             });
         }, 1500);
     }
