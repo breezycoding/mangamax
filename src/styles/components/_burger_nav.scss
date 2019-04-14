@@ -1,0 +1,23 @@
+.burger_nav{
+    background-color:$dark_orange_color;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35px;
+    z-index:2;
+}
+.burger_nav__btn:focus{
+    outline:none;
+}
+
+.burger_nav__btn{
+    padding: 8px;
+}
+.burger_nav__btn .hamburger-box{
+    height: 10px!important;
+}
+
+.burger_nav__btn .hamburger-inner, .burger_nav__btn .hamburger-inner:after, .burger_nav__btn .hamburger-inner:before{
+    width: 20px!important;
+    height: 6px!important;
+}

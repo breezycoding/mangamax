@@ -1,12 +1,15 @@
 import React from "react";
 import {BrowserRouter, HashRouter,  Route, Switch} from "react-router-dom";
 import { createBrowserHistory } from "history";
+import { connect } from "react-redux";
+import LoadingOverlay from 'react-loading-overlay';
+import PropagateLoader from 'react-spinners/PropagateLoader';
 
 const history = createBrowserHistory()
 
 import Home from "src/components/Home";
 
-const App_router = () => {
+const App_router = (props) => {
 	const paths = () => (
 		<Switch>
 			<Route path="/" component={Home} exact={true}/>
@@ -24,12 +27,28 @@ const App_router = () => {
 			{paths()}
 		</BrowserRouter>
 	)
-
 	return(
-		<div>
-			{productionBuild()}
-		</div>
+		<LoadingOverlay
+			active={props.showOverlay}
+			spinner={
+				<PropagateLoader 
+					color={'#EE7600'} 
+					sizeUnit={"rem"}
+					size={1.25}
+				/>}
+			//text='Loading your content...'
+		>
+			<div>
+				{productionBuild()}
+			</div>
+		</LoadingOverlay>
 	);
 } 
 
-export default App_router;
+const mapStateToProps = (state, props) => {    
+	return {
+        showOverlay: state.showOverlay
+	};
+}; 
+
+export default connect(mapStateToProps, null)(App_router);

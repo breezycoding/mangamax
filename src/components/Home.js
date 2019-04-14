@@ -1,11 +1,14 @@
 //import React, { useState, useEffect } from "react";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { Container, Form, Row } from 'react-bootstrap';
 
-import * as mangaLists from "src/redux/action/mangaLists";
+import { mangaLists } from "src/redux/action/mangaLists";
+import { overlay } from "src/redux/action/overlay";
+
 import MangaLists from "src/components/MangaLists";
 
 import pageLoader from "src/assets/img/page_loader.gif";
@@ -28,7 +31,7 @@ class Home extends Component{
     componentDidUpdate(prevProps){
         if(prevProps.mangaListsData !== this.props.mangaListsData){
             console.log("call once");
-            //console.log("this ",this.validListsObject());
+            this.props.overlay(false);
             this.setState({
                 lists: this.validListsObject()
             });
@@ -39,9 +42,9 @@ class Home extends Component{
         return this.flattenArray(this.props.mangaListsData).filter(
             (value) => {
                 return Object.keys(value).length !== 0 && 
-                        (
-                            value.a || value.im || value.t || value.i || value.s || value.c || value.ld || value.h
-                        ) 
+                    (
+                        value.a || value.im || value.t || value.i || value.s || value.c || value.ld || value.h
+                    ) 
             }
         ).slice(0,8 + adddedLists);
     }
@@ -64,6 +67,7 @@ class Home extends Component{
             [option]:value
         });
         this.props.mangaLists(value);
+        this.props.overlay(true);
     }
 
     flattenArray = (arrElem) => {
@@ -110,10 +114,6 @@ class Home extends Component{
                     </div>
                 </Row>
                 <Container>
-                    
-                    <Row>
-                        
-                    </Row>
                     <Row className="homepage__infinite_scroll_wrapper">
                         <InfiniteScroll
                             dataLength={this.state.lists.length}
@@ -217,4 +217,11 @@ const mapStateToProps = (state, props) => {
 	};
 }; 
 
-export default connect(mapStateToProps, mangaLists)(Home);
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        overlay,
+        mangaLists
+    },dispatch)
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

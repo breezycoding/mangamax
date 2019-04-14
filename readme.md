@@ -48,6 +48,22 @@ key: value
             chapter's title(string),
             chapter's ID(string)
         ]
+    chapters_len: chapters length 
+    created : created at
+    description: chapters
+    hits: number of hits
+    image: image for chapter page
+    imageURL: might be null
+    language: 0(english) 1(italian)
+    last_chapter_date: 
+    released: released date
+    startsWith: first letter
+    status: 
+    title: title of anime, might be the same
+    title_kw: [array of titles]
+    type: 
+    updatedKeywords: true or false
+    url: url in mangaeden site
 
 Chapter pages
     URL: https://www.mangaeden.com/api/chapter/[chapter.id]/ 

@@ -5,6 +5,10 @@ body{
     font-family: "AttackonCourier", sans-serif;
 }
 
+.css-df17o1{
+	position:fixed!important;
+}
+
 @mixin display_flex(){
 	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */

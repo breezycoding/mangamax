@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const VENDOR_LIBS = [
-    "react", "lodash", "redux", "react-redux", "react-dom", "redux-thunk", "react-router", "react-router-dom", "@babel/polyfill/noConflict", "react-bootstrap"
+    "react", "lodash", "redux", "react-redux", "react-dom", "redux-thunk", "react-router", "react-router-dom", "@babel/polyfill/noConflict"
 ];
 
 module.exports = () => {

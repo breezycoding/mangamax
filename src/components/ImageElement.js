@@ -9,7 +9,7 @@ const ImageElement = (props) => {
     const [loadedImage, setloadedImage] = useState(false);
 	
     return(
-        <div>
+        <div className="categoryImages__container">
             {
                 !loadedImage && <img className="image_loader" src={imageLoader}/>
             }
